@@ -1,0 +1,65 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:
+        1:    8:int main(){
+        -:    9:
+        -:   10:  int i;
+        -:   11:
+        1:   12:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   13:	       remodel, smithy, village, baron, great_hall};
+        -:   14:
+        -:   15:  int tempCount;
+        -:   16:
+        -:   17:  int actualCount;
+        -:   18:
+        -:   19:  struct gameState G;
+        -:   20:
+        1:   21:  initializeGame(2, k, 1, &G);//Initialize game with 2 players
+        -:   22:
+        1:   23:  printf("TESTING supplyCount():\n");
+        -:   24:
+        1:   25:  printf("Initial Count of Adventurer is %d\n", supplyCount(adventurer, &G));
+       13:   26:  for (i = 0; i < 12; i++)
+        -:   27:  {
+       12:   28:    tempCount = supplyCount(adventurer, &G);
+        -:   29:
+       12:   30:    gainCard(7, &G, 0, 0);
+       12:   31:    actualCount = supplyCount(adventurer, &G);
+       12:   32:    if(tempCount > 0){
+       10:   33:      tempCount = tempCount - 1;
+        -:   34:    }
+        -:   35:    //int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
+        -:   36:
+       12:   37:    assert(tempCount == actualCount);
+       12:   38:    printf("Actual count = %d, expected count = %d\n", actualCount, tempCount);
+        -:   39:  }
+        -:   40:
+        1:   41:  printf("\nInitial Count of Province is %d\n", supplyCount(province, &G));
+       11:   42:  for (i = 0; i < 10; i++)
+        -:   43:  {
+       10:   44:    tempCount = supplyCount(province, &G);
+        -:   45:
+       10:   46:    gainCard(3, &G, 0, 0);
+       10:   47:    actualCount = supplyCount(province, &G);
+       10:   48:    if(tempCount > 0){
+        8:   49:      tempCount = tempCount - 1;
+        -:   50:    }
+        -:   51:
+       10:   52:    assert(tempCount == actualCount);
+       10:   53:    printf("Actual count = %d, expected count = %d\n", actualCount, tempCount);
+        -:   54:  }
+        -:   55:
+        -:   56:
+        1:   57:  return 0;
+        -:   58:
+        -:   59:}
+        -:   60:

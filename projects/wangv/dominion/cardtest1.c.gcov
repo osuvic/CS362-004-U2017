@@ -1,0 +1,76 @@
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:
+       12:    8:int assertFunc(int actual, int expected)
+        -:    9:{
+       12:   10:  if (actual == expected){
+        -:   11:    //printf("Assert confirmed.\n");
+       10:   12:    return 0;
+        -:   13:  }
+        -:   14:  else {
+        2:   15:    printf("Error! Assert failed!\n");
+        2:   16:    return -1;
+        -:   17:  }
+        -:   18:
+        -:   19:}
+        -:   20:
+        2:   21:int main(){
+        -:   22:
+        -:   23:  int i;
+        -:   24:
+        2:   25:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   26:	       remodel, smithy, village, baron, great_hall};
+        -:   27:
+        -:   28:  int currentPlayer;
+        -:   29:  int expHandCount;
+        -:   30:  int expNumActions;
+        -:   31:  int expNumBuys;
+        -:   32:
+        -:   33:  struct gameState G;
+        -:   34:
+        2:   35:  initializeGame(2, k, 1, &G);//Initialize game with 2 players
+        -:   36:
+        2:   37:  printf("TESTING Card Great Hall:\n");
+        -:   38:
+        2:   39:  currentPlayer = whoseTurn(&G);
+        -:   40:
+        2:   41:  expHandCount = 5;
+        2:   42:  expNumActions = 1;
+        2:   43:  expNumBuys = 1;
+        -:   44:
+        2:   45:  assertFunc(G.handCount[currentPlayer], expHandCount);
+        2:   46:  printf("Actual handcount = %d, expected = %d\n", G.handCount[currentPlayer], expHandCount);
+        -:   47:
+        2:   48:  assertFunc(G.numActions, expNumActions);
+        2:   49:  printf("Actual numActions = %d, expected = %d\n", G.numActions, expNumActions);
+        -:   50:
+        2:   51:  assertFunc(G.numBuys, expNumBuys);
+        2:   52:  printf("Actual numBuys = %d, expected = %d\n", G.numBuys, expNumBuys);
+        -:   53:
+        2:   54:  cardEffectGreatHall(currentPlayer, &G, 0);
+        2:   55:  printf("Playing Great Hall card...\n");
+        -:   56:
+        2:   57:  expHandCount = 5;
+        2:   58:  expNumActions = 1;
+        2:   59:  expNumBuys = 1;
+        -:   60:
+        2:   61:  assertFunc(G.handCount[currentPlayer], expHandCount);
+        2:   62:  printf("Actual handcount = %d, expected = %d\n", G.handCount[currentPlayer], expHandCount);
+        -:   63:
+        2:   64:  assertFunc(G.numActions, expNumActions);
+        2:   65:  printf("Actual numActions = %d, expected = %d\n", G.numActions, expNumActions);
+        -:   66:
+        2:   67:  assertFunc(G.numBuys, expNumBuys);
+        2:   68:  printf("Actual numBuys = %d, expected = %d\n", G.numBuys, expNumBuys);
+        -:   69:
+        2:   70:  return 0;
+        -:   71:}
