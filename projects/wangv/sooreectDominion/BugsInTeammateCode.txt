@@ -1,0 +1,5 @@
+1.Found a bug in the greatHallCard() function where the actual hand count after playing the card didn’t match the expected hand count.  However the actual number of actions came out as expected.  
+
+2. I found another bug in the smithyCard() function as the actual hand count failed to match the expected hand count.
+
+3. In the adventurerCard function the actual hand count didn’t match with the expected hand count.  
